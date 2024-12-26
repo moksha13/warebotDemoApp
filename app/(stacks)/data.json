@@ -1,0 +1,206 @@
+{
+    "total_warehouses": 1,
+    "total_devices": 1,
+    "total_inventories": 1,
+    "total_viewers": 1,
+    "total_requests": 0,
+    "user": {
+      "user_id": "O12-10-8b3841f2ae",
+      "dob": "1990-12-10T12:52:55.000Z",
+      "admin_id": 1,
+      "id": 26,
+      "sex": "male",
+      "username": "ownertest",
+      "address": "address",
+      "hashed_password": "$2b$12$PPvjn5l/4/0ly/dyJh1mD.y9JMygq2q9JsEGsqILYUm7AbzYqrunC",
+      "user_type": "owner",
+      "image": "",
+      "subscription": false,
+      "name": "Owner",
+      "total_devices": null,
+      "email": "warebotcare@gmail.com",
+      "total_viewers": null,
+      "phone": "2342342342",
+      "created_at": "2024-12-10T12:57:38.518252"
+    },
+    "warehouses": [
+      {
+        "warehouse_id": "WH-12-10-ecba196698",
+        "Warehouse_name": "Owner Warehouse",
+        "inventory_size": null,
+        "address": "Address",
+        "owner_id": "O12-10-8b3841f2ae",
+        "id": 15,
+        "Warehouse_size": 123,
+        "location": "location",
+        "image": "img"
+      },
+      {
+        "warehouse_id": "WH-12-10-ecba196699",
+        "Warehouse_name": "Owner Warehouse12",
+        "inventory_size": null,
+        "address": "123 Main St, City A",
+        "owner_id": "O12-10-8b3841f2af",
+        "id": 15,
+        "Warehouse_size": 123,
+        "location": "City A",
+        "image": "img_warehouse1"
+      },
+      {
+        "warehouse_id": "WH-13-11-ecba196700",
+        "Warehouse_name": "Central Warehouse01",
+        "inventory_size": 3500,
+        "address": "456 Market St, City B",
+        "owner_id": "O13-11-8b3841f3af",
+        "id": 16,
+        "Warehouse_size": 1500,
+        "location": "City B",
+        "image": "img_warehouse2"
+      },
+      {
+        "warehouse_id": "WH-14-12-ecba196701",
+        "Warehouse_name": "East Side Warehouse03",
+        "inventory_size": 1200,
+        "address": "789 Industrial Rd, City C",
+        "owner_id": "O14-12-8b3841f4af",
+        "id": 17,
+        "Warehouse_size": 850,
+        "location": "City C",
+        "image": "img_warehouse3"
+      },
+      {
+        "warehouse_id": "WH-15-13-ecba196702",
+        "Warehouse_name": "West Coast Warehouse05",
+        "inventory_size": 5000,
+        "address": "101 West Ave, City D",
+        "owner_id": "O15-13-8b3841f5af",
+        "id": 18,
+        "Warehouse_size": 2500,
+        "location": "City D",
+        "image": "img_warehouse4"
+      },
+      {
+        "warehouse_id": "WH-16-14-ecba196703",
+        "Warehouse_name": "North Warehouse06",
+        "inventory_size": 2200,
+        "address": "202 North Blvd, City E",
+        "owner_id": "O16-14-8b3841f6af",
+        "id": 19,
+        "Warehouse_size": 1800,
+        "location": "City E",
+        "image": "img_warehouse5"
+      },
+      {
+        "warehouse_id": "WH-17-15-ecba196704",
+        "Warehouse_name": "South Warehouse07",
+        "inventory_size": 1400,
+        "address": "303 South Rd, City F",
+        "owner_id": "O17-15-8b3841f7af",
+        "id": 20,
+        "Warehouse_size": 1300,
+        "location": "City F",
+        "image": "img_warehouse6"
+      },
+      {
+        "warehouse_id": "WH-18-16-ecba196705",
+        "Warehouse_name": "Central Storage Warehouse09",
+        "inventory_size": 3200,
+        "address": "404 Central Dr, City G",
+        "owner_id": "O18-16-8b3841f8af",
+        "id": 21,
+        "Warehouse_size": 2100,
+        "location": "City G",
+        "image": "img_warehouse7"
+      },
+      {
+        "warehouse_id": "WH-19-17-ecba196706",
+        "Warehouse_name": "Warehouse Zone01",
+        "inventory_size": 800,
+        "address": "505 Business Rd, City H",
+        "owner_id": "O19-17-8b3841f9af",
+        "id": 22,
+        "Warehouse_size": 400,
+        "location": "City H",
+        "image": "img_warehouse8"
+      },
+      {
+        "warehouse_id": "WH-20-18-ecba196707",
+        "Warehouse_name": "Prime Warehouse21",
+        "inventory_size": 4200,
+        "address": "606 Industrial St, City I",
+        "owner_id": "O20-18-8b3841f0af",
+        "id": 23,
+        "Warehouse_size": 1800,
+        "location": "City I",
+        "image": "img_warehouse9"
+      },
+      {
+        "warehouse_id": "WH-21-19-ecba196708",
+        "Warehouse_name": "East West Logistics",
+        "inventory_size": 2300,
+        "address": "707 East Blvd, City J",
+        "owner_id": "O21-19-8b3841f1af",
+        "id": 24,
+        "Warehouse_size": 2000,
+        "location": "City J",
+        "image": "img_warehouse10"
+      }
+    ],
+    "devices": [
+      {
+        "temp_max": 32,
+        "warehouse_id": "WH-12-10-ecba196698",
+        "device_id": "BOT-12-10-433673df6a",
+        "temp_min": 22,
+        "id": 18,
+        "humidity_max": 43,
+        "bot_name": "OwnerBot",
+        "humidity_min": 43,
+        "bot_jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJPd25lckJvdCIsImlkIjoiQk9ULTEyLTEwLTQzMzY3M2RmNmEifQ.g9ZPMB2nctw3sN8r9y-gKUUTRGI_3CpffH0ZxdSjx6k",
+        "gas_max": 42,
+        "active": false,
+        "gas_min": 22,
+        "total_viewers": null,
+        "created_at": "2024-12-10T13:04:22.429840",
+        "subscription": null,
+        "owner_id": "O12-10-8b3841f2ae"
+      }
+    ],
+    "inventory_items": [
+      {
+        "id": 6,
+        "goods_type": "food",
+        "goods_weight": "32",
+        "goods_description": "23",
+        "created_at": "2024-12-10T13:22:32.793533",
+        "exit_date": null,
+        "viewer_id": "V12-10-35442585bc",
+        "inventory_id": "IN-12-10-b61c62e0c3",
+        "goods": "food",
+        "goods_quantity": "23",
+        "total_weight": "234",
+        "market_value": "32423",
+        "last_update": null,
+        "warehouse_id": "WH-12-10-ecba196698"
+      }
+    ],
+    "viewers": [
+      {
+        "id": 10,
+        "hashed_password": "$2b$12$PlpwYfPBi5iuvk0VQACb9efSG.zGy3maUB6jMYydFOYzXykF14Xzy",
+        "name": "Viewer",
+        "email": "warebotcare@gmail.com",
+        "dob": "1997-12-10T13:20:06.000Z",
+        "address": "addrress",
+        "created_at": "2024-12-10T13:21:02.900354",
+        "user_id": "V12-10-35442585bc",
+        "username": "viewertest",
+        "image": "",
+        "phone": "2342342342",
+        "sex": "male",
+        "user_type": "viewer",
+        "admin_id": 1
+      }
+    ],
+    "requests": []
+  }
