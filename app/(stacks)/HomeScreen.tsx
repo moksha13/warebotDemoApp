@@ -1,17 +1,19 @@
 import React from "react";
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
 import DATA from './data.json'
 import { customScale } from "@/utils/CustomScale";
+import { useNavigation } from "expo-router";
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
+const Item = ({ title ,navigation}:any) => (
+  <TouchableOpacity style={styles.item} onPress={()=>navigation.navigate('LiveDataScreen')}>
     <Text style={styles.title}>{title}</Text>
-  </View>
+  </TouchableOpacity>
 );
 
 const HomeScreen = () => {
-  const renderItem = ({ item }) => (
-    <Item title={item.Warehouse_name} />
+  const navigation = useNavigation()
+  const renderItem = ({ item }:any) => (
+    <Item title={item.Warehouse_name} navigation={navigation}/>
   );
 
   return (
@@ -48,6 +50,8 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontSize:customScale(20),
     fontWeight:'bold',
+    fontStyle:'normal',
+    fontFamily:'Roboto'
   }
 });
 
