@@ -114,6 +114,8 @@ export default function SignupScreen() {
         }
     };
 
+    console.log(AuthKey,"AuthKey")
+
     if (loading) {
         // Show loader until AuthKey is fetched
         return (

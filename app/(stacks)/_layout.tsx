@@ -45,6 +45,13 @@ export default function TabLayout() {
         title:'LiveDataScreen'
         }}
         />
+        
+        <Stack.Screen
+      name='ProfileScreen'
+      options={{
+        title:'ProfileScreen'
+        }}
+        />
     </Stack>
   );
 }

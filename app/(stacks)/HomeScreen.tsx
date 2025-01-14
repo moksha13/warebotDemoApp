@@ -7,16 +7,18 @@ import {SyncDataFunction} from "@/app/(stacks)/SyncDataFunction";
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [wareHouses, setWareHouses] = useState([]);
-
+  const [loading, setLoading] = useState(true); 
   // Fetch warehouses from AsyncStorage
   const getData = async () => {
     try {
       let warehouses = await AsyncStorage.getItem('warehouses');
       if (warehouses) {
         setWareHouses(JSON.parse(warehouses)); // Parse the stored string into an array
+        setLoading(false); 
       }
     } catch (error) {
       console.error('Error retrieving warehouses from AsyncStorage:', error);
+      setLoading(false); 
     }
   };
 
@@ -45,15 +47,27 @@ const HomeScreen = () => {
       </TouchableOpacity>
     );
   };
-// console.log(wareHouses,"wareHouses")
+console.log(wareHouses,"wareHouses")
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>List Of Warehouses</Text>
+      {/* <Text style={styles.text}>List Of Warehouses</Text>
      {wareHouses? <FlatList
         data={wareHouses} // Use the state as the data source
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()} // Ensure keys are unique and of type string
-      />:<ActivityIndicator size={"large"}/>}
+      />:<ActivityIndicator size={"large"}/>} */}
+       {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" /> // Show loader while data is loading
+      ) : (
+        <>
+         <Text style={styles.text}>List Of Warehouses</Text>
+         <FlatList
+          data={wareHouses} // Use the state as the data source
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()} // Ensure keys are unique and of type string
+        />
+        </>
+        )}
     </SafeAreaView>
   );
 };
