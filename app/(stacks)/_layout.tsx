@@ -1,19 +1,16 @@
+
 import { Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TabLayout() {
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const [AuthKey, setAuthKey] = useState('');
 
   const checkLoginStatus = async () => {
     try {
-      const loginStatus = await AsyncStorage.getItem('isLoggedIn');
-      if (loginStatus === 'true') {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      const loginToken:any = await AsyncStorage.getItem('AuthToken');
+      setAuthKey(loginToken);
     } catch (error) {
       console.error("Error checking login status:", error);
     }
@@ -21,14 +18,15 @@ export default function TabLayout() {
 
   useEffect(()=>{
     checkLoginStatus()
-  },[])
+  },[AuthKey])
 
+  console.log(AuthKey,"ppppppppppppp")
   return (
     <Stack
       screenOptions={{
         headerShown: false,
-       
       }}>
+     
       <Stack.Screen
         name="index"
         options={{
