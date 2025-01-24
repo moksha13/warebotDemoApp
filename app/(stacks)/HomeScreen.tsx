@@ -4,50 +4,85 @@ import { customScale } from "@/utils/CustomScale";
 import { useNavigation } from "expo-router";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SyncDataFunction} from "@/app/(stacks)/SyncDataFunction";
+import viewerData from './viewersData.json'
+
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [wareHouses, setWareHouses] = useState([]);
-  const [loading, setLoading] = useState(true); 
-  // Fetch warehouses from AsyncStorage
-  const getData = async () => {
-    try {
-      let warehouses = await AsyncStorage.getItem('warehouses');
-      if (warehouses) {
-        setWareHouses(JSON.parse(warehouses)); // Parse the stored string into an array
-        setLoading(false); 
-      }
-    } catch (error) {
-      console.error('Error retrieving warehouses from AsyncStorage:', error);
-      setLoading(false); 
-    }
-  };
+  const [loading, setLoading] = useState(false); 
+  const [inventories, setInventories] = useState([viewerData.inventory_items.flat()])
+  const [userType, setUserType] = useState('')
+ 
 
   useEffect(() => {
     SyncDataFunction(); // Synchronize data initially
   }, []);
+  const getData = async () => {
+    try {
+      let warehouses = await AsyncStorage.getItem('warehouses');
+      let user_type =  await AsyncStorage.getItem('user_type');
+      let inventory =  await AsyncStorage.getItem('inventory');
+      let dataFetched = false;
+
+    if (warehouses) {
+      setWareHouses(JSON.parse(warehouses)); // Parse the stored string into an array
+      dataFetched = true;
+    }
+
+    if (user_type) {
+      setUserType(JSON.parse(user_type)); // Parse the stored string into an array
+      dataFetched = true;
+    }
+
+    if (inventory) {
+      setInventories(JSON.parse(inventory)); // Parse the stored string into an array
+      dataFetched = true;
+    }
+
+    // Only set loading to false if any data was fetched
+    if (dataFetched) {
+      setLoading(false);
+    }
+
+  } catch (error) {
+    console.error('Error retrieving data from AsyncStorage:', error);
+    setLoading(false);
+  }
+  };
+
+
+  console.log(inventories.flat())
+  
 
   useEffect(() => {
-    getData(); // Fetch data after syncing
+    // getData(); // Fetch data after syncing
   }, []); // Only run once on component mount
 
   const renderItem = ({ item }) => {
+    console.log(item,'jj')
     return (
       <TouchableOpacity 
         style={styles.item} 
         onPress={async () => {
           try {
-            await AsyncStorage.setItem('selectedWarehouse', JSON.stringify(item)); // Store the selected warehouse
+            if (userType === 'owner') {
+              // Store selected warehouse for owner
+              await AsyncStorage.setItem('selectedWarehouse', JSON.stringify(item));
+            } else {
+              // Store selected inventory for non-owner
+              await AsyncStorage.setItem('selectedInventories', JSON.stringify(item));
+            }
             navigation.navigate('LiveDataScreen'); // Navigate to LiveDataScreen
           } catch (error) {
             console.error("Error storing warehouse:", error);
           }
         }}
       >
-        <Text style={styles.title}>{item.Warehouse_name}</Text>
+        <Text style={styles.title}>{userType==='owner'?item.Warehouse_name:item.inventory_id}</Text>
       </TouchableOpacity>
     );
   };
-console.log(wareHouses,"wareHouses")
+console.log(inventories,"wareHouses")
   return (
     <SafeAreaView style={styles.container}>
       {/* <Text style={styles.text}>List Of Warehouses</Text>
@@ -60,12 +95,18 @@ console.log(wareHouses,"wareHouses")
         <ActivityIndicator size="large" color="#0000ff" /> // Show loader while data is loading
       ) : (
         <>
-         <Text style={styles.text}>List Of Warehouses</Text>
-         <FlatList
-          data={wareHouses} // Use the state as the data source
+         <Text style={styles.text}>{userType==='owner'?'List Of Warehouses':'List Of Inventories'}</Text>
+         {userType==='owner'?<FlatList
+          data={ wareHouses} // Use the state as the data source
           renderItem={renderItem}
-          keyExtractor={item => item.id.toString()} // Ensure keys are unique and of type string
+          keyExtractor={item => item?.id?.toString()} // Ensure keys are unique and of type string
+        />:
+         <FlatList
+          data={inventories.flat()} // Use the state as the data source
+          renderItem={renderItem}
+          keyExtractor={item => item?.inventory_id} // Ensure keys are unique and of type string
         />
+         }
         </>
         )}
     </SafeAreaView>

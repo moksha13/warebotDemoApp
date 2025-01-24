@@ -29,6 +29,7 @@ const LiveDataScreen = () => {
   const [loader, setLoader] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isInventoriesExpanded, setIsInventoriesExpanded] = useState(false);
+  const [storedInventory, setStoreInventory] = useState([])
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
@@ -41,8 +42,12 @@ const LiveDataScreen = () => {
       try {
         // Fetch the warehouse data
         const storedWarehouse = await AsyncStorage.getItem("selectedWarehouse");
+        const selectedInventories = await AsyncStorage.getItem(selectedInventories)
         if (storedWarehouse) {
           setWarehouse(JSON.parse(storedWarehouse)); // Parse and set warehouse data
+        }
+        if (selectedInventories) {
+          setStoreInventory(JSON.parse(selectedInventories)); // Parse and set warehouse data
         }
 
         // Fetch devices and inventories data
