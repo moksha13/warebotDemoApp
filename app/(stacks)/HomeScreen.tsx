@@ -24,7 +24,7 @@ const HomeScreen = () => {
       let inventory =  await AsyncStorage.getItem('inventory');
       let dataFetched = false;
 
-      console.log(userTypeData,"------------")
+     
 
     if (warehouses) {
       setWareHouses(JSON.parse(warehouses)); // Parse the stored string into an array
@@ -32,7 +32,7 @@ const HomeScreen = () => {
     }
 
     if (userTypeData) {
-      setUserType(JSON.parse(userTypeData)); // Parse the stored string into an array
+      setUserType(userTypeData); // Parse the stored string into an array
       dataFetched = true;
     }
 
@@ -55,7 +55,7 @@ const HomeScreen = () => {
   useEffect(() => {
     getData(); 
   }, []); 
-
+  console.log(userType,"---------;;;;;;;;;;;;;;;;----")
  
 
   const renderItem = ({ item }) => {

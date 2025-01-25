@@ -87,14 +87,14 @@ const LiveDataScreen = () => {
           }
         }
         if (user_type) {
-          setUserType(JSON.parse(user_type)); // Parse the stored string into an array
+          setUserType(user_type); // Parse the stored string into an array
           
         }
     
         if (storedViewers) {
           const viewerData = JSON.parse(storedViewers)
-          const filterDataViewer = warehouse?.filter(
-            (item) => item.warehouse_id === selectedInventory?.warehouse_id
+          const filterDataViewer = viewerData?.filter(
+            (item) => item.warehouse_id === warehouse?.warehouse_id
           );
           setViewers(filterDataViewer || []);
         }
