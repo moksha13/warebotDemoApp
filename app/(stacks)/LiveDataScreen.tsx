@@ -29,7 +29,8 @@ const LiveDataScreen = () => {
   const [loader, setLoader] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isInventoriesExpanded, setIsInventoriesExpanded] = useState(false);
-  const [storedInventory, setStoreInventory] = useState([])
+  const [userType, setUserType] = useState('')
+  // const [storedInventory, setStoreInventory] = useState([])
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
@@ -42,29 +43,60 @@ const LiveDataScreen = () => {
       try {
         // Fetch the warehouse data
         const storedWarehouse = await AsyncStorage.getItem("selectedWarehouse");
-        const selectedInventories = await AsyncStorage.getItem(selectedInventories)
         if (storedWarehouse) {
           setWarehouse(JSON.parse(storedWarehouse)); // Parse and set warehouse data
         }
+        const selectedInventories = await AsyncStorage.getItem('selectedInventories')
         if (selectedInventories) {
-          setStoreInventory(JSON.parse(selectedInventories)); // Parse and set warehouse data
+          setSelectedInventory(JSON.parse(selectedInventories)); // Parse and set warehouse data
         }
-
         // Fetch devices and inventories data
         const storedDevices = await AsyncStorage.getItem("devices");
         const storedInventories = await AsyncStorage.getItem("inventory");
         const storedViewers = await AsyncStorage.getItem("viewers");
+        let user_type =  await AsyncStorage.getItem('user_type');
         // console.log(storedViewers,'storedViewers',storedInventories)
 
         if (storedDevices) {
-          setDevices(JSON.parse(storedDevices)); // Parse and set devices data
+          const storedDevicesData = storedDevices ? JSON.parse(storedDevices) : [];
+          if(user_type==='owner'){
+            const filterData = storedDevicesData?.filter(
+              (item) => item.warehouse_id === warehouse?.warehouse_id
+            );
+            setDevices(filterData || []);
+          }else{
+            const filterData = storedDevicesData?.filter(
+              (item) => item.warehouse_id === selectedInventory?.warehouse_id
+            );
+            setDevices(filterData || []);
+          }
+         
         }
         if (storedInventories) {
-          setInventories(JSON.parse(storedInventories)); // Parse and set inventories data
+         const inventoriesData =  JSON.parse(storedInventories) // Parse and set inventories data
+          if(user_type==='owner'){
+            const filterData = inventoriesData?.filter(
+              (item) => item.warehouse_id === warehouse?.warehouse_id
+            );
+            setDevices(filterData || []);
+          }else{
+            const filterData = inventoriesData?.filter(
+              (item) => item.warehouse_id === selectedInventory?.warehouse_id
+            );
+            setInventories(filterData || []);
+          }
         }
+        if (user_type) {
+          setUserType(JSON.parse(user_type)); // Parse the stored string into an array
+          
+        }
+    
         if (storedViewers) {
-          // console.log(JSON.parse(storedViewers),"JSON.parse(storedViewers)")
-          setViewers(JSON.parse(storedViewers)); // Parse and set devices data
+          const viewerData = JSON.parse(storedViewers)
+          const filterDataViewer = warehouse?.filter(
+            (item) => item.warehouse_id === selectedInventory?.warehouse_id
+          );
+          setViewers(filterDataViewer || []);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -74,7 +106,7 @@ const LiveDataScreen = () => {
   }, []);
 
   // console.log(viewers,inventories,devices,"moooooooooo")
-  // console.log(devices,"moooooooooo")
+  console.log(devices,"moooooooooo")
 
   const scriptData = async () => {
     if (!selectedDevice) return;
@@ -127,14 +159,12 @@ const LiveDataScreen = () => {
   // },[selectedDevice?.bot_name])
   useEffect(() => {
     if (!selectedDevice?.bot_name) return;
-
-    // Call scriptData initially
     scriptData();
 
-    // Set interval to call scriptData every 5 seconds
     const intervalId = setInterval(() => {
+      console.log('hiihihihi')
       scriptData();
-    }, 60000); // 5000ms = 5 seconds
+    }, 5000); // 5000ms = 5 seconds
 
     // Clear the interval on component unmount or when selectedDevice?.bot_name changes
     return () => clearInterval(intervalId);
@@ -193,18 +223,15 @@ const LiveDataScreen = () => {
   console.log(
     botDataHistory?.length > 0 ? liveData[0]?.Temperature : "_ _",
     liveData,
-    "devices"
+    "devices",
+    viewers
   );
 
-  // color: botDataHistory.length > 0 && botDataHistory[botDataHistory.length - 1].TempRelay !== undefined
-  // ? botDataHistory[botDataHistory.length - 1].TempRelay === 1
-  //   ? 'red'
-  //   : 'gray'
-  // : 'white',
+
 
   return (
     <SafeAreaView style={styles.container}>
-      {warehouse ? (
+      {(warehouse || selectedInventory )? (
         <>
           <Text
             style={[
@@ -218,7 +245,7 @@ const LiveDataScreen = () => {
               },
             ]}
           >
-            {warehouse?.Warehouse_name}
+            {userType === 'owner'?warehouse?.Warehouse_name:selectedInventory?.inventory_id}
           </Text>
 
           <View
@@ -299,7 +326,7 @@ const LiveDataScreen = () => {
             >
               Viewers
             </Text> */}
-            <View style={styles.toggleExpansionContainer}>
+           { viewers!==null &&<View style={styles.toggleExpansionContainer}>
               <TouchableOpacity
                 onPress={toggleExpansion}
                 style={styles.arrowContainer}
@@ -327,7 +354,7 @@ const LiveDataScreen = () => {
                   />
                 </View>
               )}
-            </View>
+            </View>}
             {/* <Text
               style={{
                 paddingTop: customScale(10),

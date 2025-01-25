@@ -1,7 +1,14 @@
 // Correct default export
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { baseURL } from "@/api/apiUrls";
+import viewerData from './viewersData.json'
+
 export const SyncDataFunction = async () => {
+  // await AsyncStorage.setItem('user_type', JSON.stringify('viewer'));
+  // await AsyncStorage.setItem('devices', JSON.stringify(viewerData.devices));
+  // await AsyncStorage.setItem('inventory', JSON.stringify(viewerData.inventory_items));
+  // await AsyncStorage.setItem('loginUserDetails', JSON.stringify(viewerData.user));
+  //use above code for viewer incase u want to work on viewer and below for owner it will automatically work if api works
   const user_type = await AsyncStorage.getItem('user_type');
   const ownerId = await AsyncStorage.getItem('OwnerId');
   let token = await AsyncStorage.getItem('AuthToken');

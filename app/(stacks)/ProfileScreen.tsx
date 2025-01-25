@@ -11,6 +11,8 @@ import {
 import { LinearGradient } from "expo-linear-gradient"; // Install expo-linear-gradient if using Expo
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "expo-router";
+import { customScale } from "@/utils/CustomScale";
+import { Ionicons } from "@expo/vector-icons";
 
 const ProfileScreen = () => {
   const navigation = useNavigation()
@@ -62,9 +64,13 @@ const ProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={["#1e2a49", "#2c3e50"]}
+        colors={["#fff", "#2c3e50"]}
         style={styles.gradient}
       >
+
+<TouchableOpacity style={styles.logoutIcon} onPress={handleLogout}>
+          <Ionicons name="log-out-outline" size={28} color="#fff" />
+        </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.profileHeader}>
             <Image
@@ -119,16 +125,16 @@ const styles = StyleSheet.create({
   },
   gradient: {
     flex: 1,
-    paddingTop: 50,
-    paddingBottom: 50,
+    paddingTop: customScale(20),
+    paddingBottom: customScale(20),
   },
   scrollContent: {
     alignItems: "center",
-    paddingBottom: 20,
+    paddingBottom: customScale(20),
   },
   profileHeader: {
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: customScale(10),
   },
   profileImage: {
     width: 130,
@@ -136,7 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 65,
     borderWidth: 5,
     borderColor: "#fff",
-    marginBottom: 15,
+    marginBottom: customScale(2),
     backgroundColor: "#fff",
   },
   userName: {
@@ -170,12 +176,12 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   logoutButton: {
-    backgroundColor: "#e74c3c",
+    backgroundColor: "#489f72",
     paddingVertical: 14,
     width: "80%",
     borderRadius: 10,
     alignItems: "center",
-    marginTop: 30,
+    // marginTop: 30,
   },
   logoutButtonText: {
     color: "#fff",
@@ -185,7 +191,16 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 18,
     textAlign: "center",
-    marginTop: 50,
+  },
+  logoutIcon: {
+    position: "absolute",
+    top: customScale(20),
+    right: customScale(20),
+    zIndex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    borderRadius: 50,
+    padding: 8,
+    marginTop:customScale(10)
   },
 });
 
