@@ -68,7 +68,7 @@ export default function SignupScreen() {
     };
 
     const SubmitLoginApi = async () => {
-        console.log("jjjjjjjjjjjj")
+        console.log(";lll")
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -80,13 +80,11 @@ export default function SignupScreen() {
                 user_type: formData.user_type
             })
         };
-
-        console.log(requestOptions,"requestOptions")
-        // navigation.navigate('HomeScreen');
         try {
+            console.log("00000000000")
             const response = await fetch(`${baseURL}auth/login_token`, requestOptions);
             const data = await response.json();
-
+            console.log(response,data,"oooo////")
             if (!response.ok) {
                 setErrors({ password: data.detail });
             } else {
